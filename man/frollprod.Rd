@@ -4,7 +4,7 @@
 \alias{frollprod}
 \title{Fast rolling product}
 \usage{
-frollprod(DT, col, N, Name = "Prod", type = "lead", by)
+frollprod(DT, col, N, Name = "Prod", by, ...)
 }
 \arguments{
 \item{DT}{The data.table to operate on}
@@ -15,9 +15,9 @@ frollprod(DT, col, N, Name = "Prod", type = "lead", by)
 
 \item{Name}{(optional) the name of the new column}
 
-\item{type}{A string specifying the shift direction: "lag"/"lead"}
-
 \item{by}{(optional) A quoted by parameter}
+
+\item{...}{Some additional parameters that you can pass to the \code{\link{shift}} function}
 }
 \value{
 The modified data.table with the new shifted columns
@@ -28,6 +28,6 @@ Fast rolling product
 \examples{
 set.seed(123)
 DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
-frollprod(DT, "x", 3, by = "y")
+frollprod(DT, "x", 3, by = "y", type = "lead")
 }
 
