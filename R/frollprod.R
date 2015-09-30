@@ -10,7 +10,7 @@
 #' @examples  
 #' set.seed(123)
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
-#' frollprod(DT, "x", 3, by = "y" , type = "lead")
+#' frollprod(DT, "x", 3, by = "y", type = "lead")
 
 frollprod <- function(DT, col, N, Name = "Prod", by, ...){
   if(missing(by)) {
