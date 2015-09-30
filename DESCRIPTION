@@ -1,0 +1,11 @@
+Package: dt.nuggets
+Type: Package
+Title: Some convinience functions using the data.table package
+Version: 0.1
+Date: 2015-09-24
+Author: David Arenburg <david.arenburg@gmail.com>
+Maintainer: David Arenburg <david.arenburg@gmail.com>
+Description: Nothing to add (for now)
+License: MIT
+LazyData: TRUE
+Depends: data.table
