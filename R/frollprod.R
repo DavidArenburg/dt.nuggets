@@ -12,7 +12,6 @@
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
 #' frollprod(DT, "x", 3, by = "y")
 
-
 frollprod <- function(DT, col, N, Name = "Prod", type = "lead", by){
   if(missing(by)) {
     return(DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), type = type))])
