@@ -13,9 +13,8 @@ devtools::install_github('davidarenburg/dt.nuggets')
 The first function in the package is `frollprod` which can roll products by groups (or not) while updating by reference.
 
 ```r
-set.seed(123)
 DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
-frollprod(DT, "x", 3, by = "y")
+frollprod(DT, "x", 3, by = "y", type = "lead")
 DT
 #      x y Prod3
 #  1:  8 1   480
