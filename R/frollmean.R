@@ -1,4 +1,4 @@
-#' Fast rolling sum
+#' Fast rolling mean
 #' @param DT	The data.table to operate on
 #' @param col A quoted column name
 #' @param N An integer number that we want to shift by
@@ -10,13 +10,13 @@
 #' @examples  
 #' set.seed(123)
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
-#' frollsum(DT, "x", 3, by = "y", type = "lead")
+#' frollmean(DT, "x", 3, by = "y", type = "lead")
 
-frollsum <- function(DT, col, N, Name = "Sum", by, ...){
+frollmean <- function(DT, col, N, Name = "Mean", by, ...){
   if(missing(by)) {
-    return(DT[, paste0(Name, N) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), ...))])
+    return(DT[, paste0(Name, N) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), ...))/N])
   }
-  DT[, paste0(Name, N) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), ...)), by = by]
+  DT[, paste0(Name, N) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), ...))/N, by = by]
 }
 
 
