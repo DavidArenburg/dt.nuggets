@@ -8,4 +8,4 @@ Maintainer: David Arenburg <david.arenburg@gmail.com>
 Description: Nothing to add (for now)
 License: MIT
 LazyData: TRUE
-Depends: data.table
+Depends: data.table (>= 1.9.6)
