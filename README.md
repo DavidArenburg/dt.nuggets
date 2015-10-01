@@ -28,3 +28,7 @@ DT
 #  9:  1 2    NA
 # 10:  5 2    NA
 ```
+
+**Issues**
+
+Currently the main issue here is that I don't know how to add `na.rm` parameter here, so if you happen to have NAs in the data and you want to ignore them, it won't work properly.
