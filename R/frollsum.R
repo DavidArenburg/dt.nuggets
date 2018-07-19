@@ -5,6 +5,7 @@
 #' @param Name (optional) the name of the new column
 #' @param by (optional) A quoted by parameter
 #' @param partial (boolean) - to do a partial sum or not 
+#' @param na.rm (boolean) - if you want a ignore NAs (this will run slightly slower)
 #' @param ... Some additional parameters that you can pass to the \code{\link{shift}} function
 #' @return The modified data.table with the new shifted columns
 #' @export
