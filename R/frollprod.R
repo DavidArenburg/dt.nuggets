@@ -13,16 +13,18 @@
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
 #' frollprod(DT, "x", 3, by = "y", type = "lead")
 
-frollprod <- function(DT, col, N, Name = "Prod", by, partial = FALSE, ...){
+frollprod <- function(DT, col, N, Name , by, partial = FALSE, ...){
   
+  if(missing(Name)) new_col <- paste0("Prod", N) else new_col <- Name
+    
   if(partial) fill. <- 1L else fill. <- NA
   
   if(missing(by)) {
     
-    return(DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))])
+    return(DT[, (new_col) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))])
     
   }
   
-  DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
+  DT[, (new_col) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
   
 }
