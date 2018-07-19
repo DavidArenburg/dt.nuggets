@@ -24,7 +24,7 @@ frollprod <- function(DT, col, N, Name , by, partial = FALSE, na.rm = FALSE, ...
     
     if(na.rm) {
       
-      DT[, (new_col) := matrixStats::rowProds(as.matrix(setDT(shift(eval(as.name(col)), 0L : (N - 1L), ...))), na.rm = TRUE)]
+      DT[, (new_col) := rowProds(as.matrix(setDT(shift(eval(as.name(col)), 0L : (N - 1L), ...))), na.rm = TRUE)]
       
       if(!partial) DT[1L:(N - 1L), (new_col) := NA_real_]
       
