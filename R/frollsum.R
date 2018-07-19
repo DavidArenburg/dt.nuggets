@@ -13,17 +13,19 @@
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
 #' frollsum(DT, "x", 3, by = "y", type = "lead")
 
-frollsum <- function(DT, col, N, Name = "Sum", by, partial = FALSE, ...){
+frollsum <- function(DT, col, N, Name, by, partial = FALSE, ...){
   
+  if(missing(Name)) new_col <- paste0("Sum", N) else new_col <- Name
+    
   if(partial) fill. <- 0L else fill. <- NA
   
   if(missing(by)) {
     
-    return(DT[, paste0(Name, N) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))])
+    return(DT[, (new_col) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))])
     
   }
   
-  DT[, paste0(Name, N) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
+  DT[, (new_col) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
   
 }
 
