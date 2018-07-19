@@ -3,8 +3,8 @@
 #' @param col A quoted column name
 #' @param N An integer number that we want to shift by
 #' @param Name (optional) the name of the new column
-#' @param partial boolean - to do a partial sum or not 
 #' @param by (optional) A quoted by parameter
+#' @param partial (boolean) - to do a partial sum or not 
 #' @param ... Some additional parameters that you can pass to the \code{\link{shift}} function
 #' @return The modified data.table with the new shifted columns
 #' @export
