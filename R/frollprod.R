@@ -15,7 +15,7 @@
 
 frollprod <- function(DT, col, N, Name , by, partial = FALSE, ...){
   
-  if(missing(Name)) new_col <- paste0("Prod", N) else new_col <- Name
+  if(missing(Name)) new_col <- paste0(col, "_prod_", N)  else new_col <- Name
     
   if(partial) fill. <- 1L else fill. <- NA
   
