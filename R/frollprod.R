@@ -4,6 +4,7 @@
 #' @param N An integer number that we want to shift by
 #' @param Name (optional) the name of the new column
 #' @param by (optional) A quoted by parameter
+#' @param partial (boolean) - if you want partial prod too
 #' @param ... Some additional parameters that you can pass to the \code{\link{shift}} function
 #' @return The modified data.table with the new shifted columns
 #' @export
@@ -12,12 +13,16 @@
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
 #' frollprod(DT, "x", 3, by = "y", type = "lead")
 
-frollprod <- function(DT, col, N, Name = "Prod", by, ...){
+frollprod <- function(DT, col, N, Name = "Prod", by, partial = FALSE, ...){
+  
+  if(partial) fill. <- 1L else fill. <- NA
+  
   if(missing(by)) {
-    return(DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), ...))])
+    
+    return(DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))])
+    
   }
-  DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), ...)), by = by]
+  
+  DT[, paste0(Name, N) := Reduce(`*`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
+  
 }
-
-
-
