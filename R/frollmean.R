@@ -13,9 +13,9 @@
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
 #' frollmean(DT, "x", 3, by = "y", type = "lead")
 
-frollmean <- function(DT, col, N, Name = "Mean", by, partial = FALSE, ...){
+frollmean <- function(DT, col, N, Name, by, partial = FALSE, ...){
   
-  new_col <- paste0(Name, N)
+  if(missing(Name)) new_col <- paste0("Mean", N) else new_col <- Name
   
   if(missing(by)) {
     
