@@ -14,20 +14,38 @@
 #' DT <- data.table(x = sample(10), y = sample(1:2, 10, replace = TRUE), key = "y")
 #' frollsum(DT, "x", 3, by = "y", type = "lead")
 
-frollsum <- function(DT, col, N, Name, by, partial = FALSE, ...){
+frollsum <- function(DT, col, N, Name, by, partial = FALSE, na.rm = FALSE, ...){
   
   if(missing(Name)) new_col <- paste0(col, "_sum_", N) else new_col <- Name
-    
+  
   if(partial) fill. <- 0L else fill. <- NA
   
   if(missing(by)) {
     
-    return(DT[, (new_col) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))])
+    if(na.rm) {
+      
+      DT[, (new_col) := rowSums(setDT(shift(eval(as.name(col)), 0L : (N - 1L), ...)), na.rm = TRUE)]
+      
+      if(!partial) DT[1L:(N - 1L), (new_col) := NA_real_]
+    
+    } else DT[, (new_col) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...))]
+    
+  } else {
+    
+    if(na.rm) {
+      
+      DT[, (new_col) := rowSums(setDT(shift(eval(as.name(col)), 0L : (N - 1L), ...)), na.rm = TRUE), by = by]
+      
+      if(!partial) {
+        
+        indx <- seq_len(N - 1L)
+        DT[, (new_col) := replace(eval(as.name(new_col)), indx, NA_real_), by = by]
+        
+      }
+      
+    } else DT[, (new_col) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
     
   }
   
-  DT[, (new_col) := Reduce(`+`, shift(eval(as.name(col)), 0L:(N - 1L), fill = fill., ...)), by = by]
-  
 }
-
 
