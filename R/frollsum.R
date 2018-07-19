@@ -15,7 +15,7 @@
 
 frollsum <- function(DT, col, N, Name, by, partial = FALSE, ...){
   
-  if(missing(Name)) new_col <- paste0("Sum", N) else new_col <- Name
+  if(missing(Name)) new_col <- paste0(col, "_sum_", N) else new_col <- Name
     
   if(partial) fill. <- 0L else fill. <- NA
   
